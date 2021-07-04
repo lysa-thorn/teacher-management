@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/admin_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>List User</title>
+    <style th:replace="/admin/shared/style"></style>
+
+</head>
+<body>
+
+
+<div layout:fragment="content">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Add User</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row  justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header  text-center"><h4>Edit Course</h4></div>
+                        <div class="card-body">
+                            <form action="#" id="salary_edit_form" method="POST">
+                                <div class="form-group">
+                                    <label>Salary</label>
+                                    <input type="text" class="form-control" id="salary">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Main content -->
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" th:inline="javascript">
+
+    var id = [[${id}]];
+
+    $(document).ready(function () {
+        /** TODO: OncLick function **/
+        $("#salary_edit_form").on("submit", function (event) {
+
+            event.preventDefault();
+
+            var formData = {
+                "id" : id,
+                "salary": $("#salary").val()
+            };
+
+            console.log(formData);
+
+            $.ajax({
+                url: "http://localhost:8080/api/v1/user-mgt/salary/edit/",
+                type: "POST",
+                data: JSON.stringify(formData),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json")
+                },
+                success: function (data) {
+                    console.log(data);
+                    window.location.href = "http://localhost:8081/salary/"
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        });
+    });
+
+</script>

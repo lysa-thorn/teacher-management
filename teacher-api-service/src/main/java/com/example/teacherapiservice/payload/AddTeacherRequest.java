@@ -1,35 +1,22 @@
-package com.example.teacherapiservice.entity;
+package com.example.teacherapiservice.payload;
 
-import javax.persistence.*;
+import com.example.teacherapiservice.entity.Course;
+import com.example.teacherapiservice.entity.Salary;
+
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 
-@Entity
-@Table(name = "teachers")
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(insertable=false, updatable=false, nullable = false)
+public class AddTeacherRequest {
     private Long id;
     private String first_name;
     private String last_name;
     private String email;
     private String gender;
     private String phone;
+    private Salary salary;
+    private List<Long> courseId;
     private Date start_date;
     private Date end_date;
-
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "course_teacher",
-            joinColumns = {@JoinColumn(name = "teacher_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "course", referencedColumnName = "id")}
-    )
-    private Collection<Course> courses;
-
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "salary_id", nullable = false)
-    private Salary salary;
 
     public Long getId() {
         return id;
@@ -59,14 +46,6 @@ public class Teacher {
         return email;
     }
 
-    public Collection<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Collection<Course> courses) {
-        this.courses = courses;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -93,6 +72,14 @@ public class Teacher {
 
     public void setSalary(Salary salary) {
         this.salary = salary;
+    }
+
+    public List<Long> getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(List<Long> courseId) {
+        this.courseId = courseId;
     }
 
     public Date getStart_date() {
