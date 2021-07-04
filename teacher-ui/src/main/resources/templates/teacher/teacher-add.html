@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/admin_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>List User</title>
+    <style th:replace="/admin/shared/style"></style>
+
+</head>
+<body>
+
+
+<div layout:fragment="content">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Add User</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row  justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header"><h4>New Teacher</h4></div>
+                        <div class="card-body">
+                            <form action="#" id="user_form" method="POST" >
+                                <div class="form-group">
+                                    <label>Firstname:</label>
+                                    <input th:type="text" class="form-control" id="first_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Lastname:</label>
+                                    <input th:type="text" class="form-control" id="last_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input th:type="text" class="form-control" id="email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender:</label>
+                                    <select class="form-control">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone:</label>
+                                    <input th:type="text" class="form-control" id="phone">
+                                </div>
+                                <div class="form-group">
+                                    <label>Salary:</label>
+                                    <input th:type="number" class="form-control" id="salary">
+                                </div>
+                                <div class="form-group">
+                                    <label>Start Date:</label>
+                                    <input th:type="date" class="form-control" id="start_date">
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date:</label>
+                                    <input th:type="date" class="form-control" id="end_date">
+                                </div>
+                                <input th:type="submit" value="Submit" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+                    <script>
+
+
+                        var user = {};
+
+                        $(document).ready(function () {
+                            /** TODO: OncLick function **/
+                            $("#user_form").on("submit", function (event){
+
+                                event.preventDefault();
+
+                                var formData = {
+                                    "username": $("#username").val(),
+                                    "email": $("#email").val(),
+                                    "password": $("#password").val(),
+                                    "gender": $("#gender").val(),
+                                    "roleId": $("#roles").val().map(Number),
+                                };
+
+                                console.log(formData);
+
+                                $.ajax({
+                                    url : "http://localhost:8080/api/v1/user-mgt/user",
+                                    type: "POST",
+                                    data: JSON.stringify(formData),
+                                    beforeSend: function (xhr){
+                                        xhr.setRequestHeader("Accept" , "application/json");
+                                        xhr.setRequestHeader("Content-Type" , "application/json")
+                                    },
+                                    success: function (data){
+                                        console.log(data);
+                                        window.location.href = "http://localhost:8081/admin/user"
+                                    },
+                                    error: function (err){
+                                        console.log(err)
+                                    }
+                                });
+
+
+                            });
+
+
+
+                            /** TODO: OnLoad function **/
+                            user.listRole = function (){
+                                $.ajax({
+                                    url : "http://localhost:8080/api/v1/user-mgt/role",
+                                    type: "GET",
+                                    beforeSend: function (xhr){
+                                        xhr.setRequestHeader("Accept" , "application/json");
+                                        xhr.setRequestHeader("Content-Type" , "application/json")
+                                    },
+                                    success: function (data){
+                                        console.log(data);
+                                        var role_data = "";
+                                        $.each(data.data , function(index, value){
+                                            role_data += '<option value='+value.id+'>'+value.name+'</option>';
+                                        });
+
+                                        $("#roles").empty();
+                                        $("#roles").append(role_data);
+                                    },
+                                    error: function (err){
+                                        console.log(err)
+                                    }
+                                });
+                            };
+                            user.listRole();
+                        });
+
+                    </script>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Main content -->
+
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/admin_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>List User</title>
+    <style th:replace="/admin/shared/style"></style>
+
+</head>
+<body>
+
+
+<div layout:fragment="content">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Add User</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row  justify-content-center">
+                <div class="col-md-11">
+                    <a th:href="@{/salary/add}" class="btn btn-primary">New Salary</a>
+                    <table class="table table-striped mt-3">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Salary</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="content">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Main content -->
+
+</div>
+
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script type="text/javascript" th:inline="javascript">
+
+    var user = {};
+
+    $(document).ready(function (){
+
+        user.findAll = function (){
+
+            $.ajax({
+                url : "http://localhost:8080/api/v1/user-mgt/salary",
+                type: "GET",
+                beforeSend: function (xhr){
+                    xhr.setRequestHeader("Accept" , "application/json");
+                    xhr.setRequestHeader("Content-Type" , "application/json");
+                    xhr.setRequestHeader ("Authorization", "bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkYXJhIiwic2NvcGUiOlsiZm9vIiwicmVhZCIsIndyaXRlIl0sInJvbGVzIjpbeyJpZCI6MiwibmFtZSI6IlJPTEVfVVNFUiIsInBlcm1pc3Npb25zIjpbXX0seyJpZCI6MywibmFtZSI6IlJPTEVfU1VQRVJfQURNSU4iLCJwZXJtaXNzaW9ucyI6W3siaWQiOjEsIm5hbWUiOiJSRUFEIn0seyJpZCI6MiwibmFtZSI6IlVQREFURSJ9LHsiaWQiOjMsIm5hbWUiOiJERUxFVEUifSx7ImlkIjo0LCJuYW1lIjoiSU5TRVJUIn1dfV0sImlkIjoxLCJleHAiOjE2MjQ1NjQxNjUsImRlcGFydG1lbnQiOjEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJSRUFEIn0seyJhdXRob3JpdHkiOiJERUxFVEUifSx7ImF1dGhvcml0eSI6IlVQREFURSJ9LHsiYXV0aG9yaXR5IjoiSU5TRVJUIn1dLCJqdGkiOiJmYWVjZjZiZi1iZjk1LTQ2MjgtODU3My03YjIzOTVmYzFmOTEiLCJlbWFpbCI6ImRhcmFAZ21haWwuY29tIiwiY2xpZW50X2lkIjoiZm9vQ2xpZW50SWRQYXNzd29yZCIsInVzZXJuYW1lIjoiZGFyYSJ9.kE-VLj9x3j95p5Edzy3Y69Pt4e9hGZzfpJxcclJKrmOoyhkyDUq1jOmsgCCNVmMHlaeSs_Eswz3Q41JOvJ3n0IsfB3qnS1U7JU1G0kUTBFGQQlLSZx_dTH6B2VViuqbO1WUJjGDtwC-ttfvX9IN8TnIWH6YdwBbFUFuWwle9fNRKpjKYE1hhTEOAu0j7RDA1w9Imi18Y4gf1KFLHHfzXgP4M2TL9M3WF63VeJnuvUaHs1AiPDFF-WlfE4lQbsXbwuRkO08Hk-Nu2WWlSeYx96vJXOYgDDLCaNMLrOc3BPMuLTNaKwAlWHs-5I2S6rmHjGKoNzriklcPtXnsITdEmfA");
+                },
+                success: function (data){
+
+                    console.log(data);
+
+                    var user_data = "";
+                    $.each(data.data, function (index, value){
+                        user_data += '<tr>';
+                        user_data += '<td>'+value.id+'</td>';
+                        user_data += '<td>'+value.salary+'</td>';
+                        user_data += '<td><a href="/salary/edit/' + value.id + '"' + '>Edit</a>' + "|" +
+                                            '<a href="http://localhost:8080/api/v1/user-mgt/salary/delete/'+ value.id +'" onclick="delete()">Delete</a></td>';
+                    });
+
+                    $("#content").empty();
+                    $("#content").append(user_data);
+
+
+                },
+                error: function (err){
+                    console.log(err)
+                }
+            });
+        };
+
+        user.findAll();
+
+    });
+
+
+</script>
+
+</body>
+</html>

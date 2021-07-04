@@ -4,16 +4,14 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "teachers")
+@Table(name = "salaries")
 public class Salary {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(insertable=false, updatable=false, nullable = false)
     private Long id;
+    @Column(unique = true)
     private double salary;
-    private Date startDate;
-    private Date endDate;
-
 
     public Long getId() {
         return id;
@@ -31,29 +29,11 @@ public class Salary {
         this.salary = salary;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     @Override
     public String toString() {
         return "Salary{" +
                 "id=" + id +
                 ", salary=" + salary +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
                 '}';
     }
 }
