@@ -1,11 +1,10 @@
 package com.example.teacherapiservice.entity;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "courses")
+public class Course {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -31,5 +30,4 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
-
 }

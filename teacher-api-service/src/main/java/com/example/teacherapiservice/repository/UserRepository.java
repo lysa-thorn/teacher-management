@@ -25,10 +25,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     UserProjection findUserProjectionByUsername(String username);
 
     // TODO : Native Query
-    @Query(value = "SELECT * FROM tu_user where id = :id" , nativeQuery = true)
+    @Query(value = "SELECT * FROM user where id = :id" , nativeQuery = true)
     User findUserById(Long id);
 
-    @Query(value = "SELECT id, username, email, gender FROM tu_user where id = :id " , nativeQuery = true)
+    @Query(value = "SELECT id, username, email, gender FROM users where id = :id " , nativeQuery = true)
     UserProjection findUserProjectionById(Long id);
 
     // TODO: Calling Store Procedure or Function from Database
