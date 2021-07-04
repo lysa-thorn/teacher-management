@@ -1,11 +1,8 @@
 package com.example.teacherapiservice.service.impl;
 
 import com.example.teacherapiservice.entity.Course;
-import com.example.teacherapiservice.entity.Role;
 import com.example.teacherapiservice.repository.CourseRepository;
-import com.example.teacherapiservice.repository.RoleRepository;
 import com.example.teacherapiservice.service.CourseService;
-import com.example.teacherapiservice.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +25,30 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> findAll() {
-        return null;
+        return courseRepository.findAll();
     }
 
     @Override
     public Course findById(Long id) {
-        return null;
+        return courseRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public boolean deleteById(Long id) {
+        Course existedDepartment = courseRepository.findById(id).get();
+        if(existedDepartment != null){
+            courseRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Course edit(Course course) {
+        return courseRepository.save(course);
+    }
+
+
+
 }
+

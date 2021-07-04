@@ -39,8 +39,8 @@ public class CourseController {
         );
     }
 
-    @PostMapping
-    public ApiResponse AddCategory(@RequestBody AddCourseRequest addCourseRequest ){
+    @PostMapping("/add")
+    public ApiResponse AddCourse(@RequestBody AddCourseRequest addCourseRequest ){
         Course course = new Course();
         course.setName(addCourseRequest.getName());
         Course courseAdded = courseService.addCourse(course);
@@ -51,4 +51,32 @@ public class CourseController {
                 courseAdded
         );
     }
+
+    @PostMapping("/edit")
+    public ApiResponse EditCourse(@RequestBody AddCourseRequest addCourseRequest){
+        Course course = courseService.findById(addCourseRequest.getId());
+        course.setName(addCourseRequest.getName());
+        Course courseAdded = courseService.addCourse(course);
+
+        return  new ApiResponse(
+                ApiStatus.SUC_CREATED.getCode(),
+                ApiStatus.SUC_CREATED.getMessage(),
+                courseAdded
+        );
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ApiResponse deleteCourse(@RequestBody AddCourseRequest addCourseRequest){
+        Course course = courseService.findById(addCourseRequest.getId());
+        course.setName(addCourseRequest.getName());
+        Course courseAdded = courseService.addCourse(course);
+
+        return  new ApiResponse(
+                ApiStatus.SUC_CREATED.getCode(),
+                ApiStatus.SUC_CREATED.getMessage(),
+                courseAdded
+        );
+    }
+
+
 }
