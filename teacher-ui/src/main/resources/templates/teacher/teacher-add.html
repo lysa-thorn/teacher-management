@@ -40,48 +40,48 @@
                             <form action="#" id="teacher_form" method="POST" >
                                 <div class="form-group">
                                     <label>Firstname:</label>
-                                    <input th:type="text" class="form-control" id="first_name">
+                                    <input th:type="text" class="form-control" id="first_name" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Lastname:</label>
-                                    <input th:type="text" class="form-control" id="last_name">
+                                    <input th:type="text" class="form-control" id="last_name" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Email:</label>
-                                    <input th:type="text" class="form-control" id="email">
+                                    <input th:type="text" class="form-control" id="email" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Gender:</label>
-                                    <select class="form-control" id="gender">
+                                    <select class="form-control" id="gender" required>
                                         <option>Male</option>
                                         <option>Female</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Courses:</label>
-                                    <select class="form-control" id="course" multiple>
+                                    <select class="form-control" id="course" multiple required>
 
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Phone:</label>
-                                    <input th:type="text" class="form-control" id="phone">
+                                    <input th:type="text" class="form-control" id="phone" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Salary:</label>
-                                    <select class="form-control" id="salary">
+                                    <select class="form-control" id="salary" required>
 
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Start Date:</label>
-                                    <input th:type="date" class="form-control" id="start_date">
+                                    <input th:type="date" class="form-control" id="start_date" required>
                                 </div>
                                 <div class="form-group">
                                     <label>End Date:</label>
-                                    <input th:type="date" class="form-control" id="end_date">
+                                    <input th:type="date" class="form-control" id="end_date" required>
                                 </div>
-                                <input th:type="submit" value="Submit" class="btn btn-primary">
+                                <input th:type="submit" value="Submit" class="btn btn-secondary">
                             </form>
                         </div>
                     </div>
