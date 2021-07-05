@@ -93,7 +93,7 @@
                     $.each(data.data, function (index, value){
                         course_data += '<tr>';
                         course_data += '<td>'+value.name+'</td>';
-                        course_data += '<td><a href="/course/edit/' + value.id + '"' + '>  <i class="material-icons text-secondary">edit</i></a>/' +
+                        course_data += '<td><a href="/course/edit/' + value.id + '"' + '>  <i class="material-icons text-secondary">edit</i></a>' +
                             '<a href="http://localhost:8080/api/v1/user-mgt/course/delete/'+ value.id +'" onclick="delete()"><i class="material-icons text-danger">delete</i></a></td>';
                     });
 

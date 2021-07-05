@@ -33,7 +33,7 @@
         <div class="container-fluid">
             <div class="row  justify-content-center">
                 <div class="col-md-11">
-                    <a th:href="@{/teacher/add}" class="btn btn-primary">New Teacher</a>
+                    <a th:href="@{/teacher/add}" class="btn btn-secondary">New Teacher</a>
                     <table class="table table-striped mt-3">
                         <thead>
                         <tr>
@@ -106,8 +106,8 @@
                         user_data += '<td><ul>'+ courseName +'</ul></td>';
                         user_data += '<td>'+value.start_date+'</td>';
                         user_data += '<td>'+value.end_date+'</td>';
-                        user_data += '<td><a href="/salary/edit/' + value.id + '"' + '>Edit</a>' + "|" +
-                            '<a href="http://localhost:8080/api/v1/user-mgt/salary/delete/'+ value.id +'" onclick="delete()">Delete</a></td>';
+                        user_data += '<td><a href="/salary/edit/' + value.id + '"' + '><i class="material-icons text-secondary">edit</i></a>' +
+                            '<a href="http://localhost:8080/api/v1/user-mgt/salary/delete/'+ value.id +'" onclick="delete()"><i class="material-icons text-danger">delete</i></a></td>';
                     });
 
                     $("#content").empty();
