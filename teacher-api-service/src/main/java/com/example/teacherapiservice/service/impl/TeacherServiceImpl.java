@@ -1,12 +1,14 @@
 package com.example.teacherapiservice.service.impl;
 
-import com.example.teacherapiservice.entity.Role;
+import com.example.teacherapiservice.controller.util.Pagination;
 import com.example.teacherapiservice.entity.Teacher;
-import com.example.teacherapiservice.repository.RoleRepository;
+import com.example.teacherapiservice.payload.projection.TeacherProjection;
+import com.example.teacherapiservice.payload.projection.UserProjection;
 import com.example.teacherapiservice.repository.TeacherRepository;
-import com.example.teacherapiservice.service.RoleService;
 import com.example.teacherapiservice.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +37,19 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher findById(Long id) {
         return null;
+    }
+
+    @Override
+    public TeacherProjection findTeacherProjectById(Long id) {
+        return teacherRepository.findTeacherProjectionById(id);
+    }
+
+    @Override
+    public List<TeacherProjection> findTeacherProjection(Pagination pagination) {
+        Page<TeacherProjection> teacherProjection = teacherRepository.findTeacherProjectionBy(
+                PageRequest.of(pagination.getPage(), pagination.getSize())
+        );
+        pagination.setTotalCounts(teacherProjection.getTotalElements());
+        return teacherProjection.getContent();
     }
 }

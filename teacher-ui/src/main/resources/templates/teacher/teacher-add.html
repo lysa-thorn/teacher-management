@@ -37,7 +37,7 @@
                     <div class="card">
                         <div class="card-header"><h4>New Teacher</h4></div>
                         <div class="card-body">
-                            <form action="#" id="user_form" method="POST" >
+                            <form action="#" id="teacher_form" method="POST" >
                                 <div class="form-group">
                                     <label>Firstname:</label>
                                     <input th:type="text" class="form-control" id="first_name">
@@ -52,9 +52,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Gender:</label>
-                                    <select class="form-control">
+                                    <select class="form-control" id="gender">
                                         <option>Male</option>
                                         <option>Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Courses:</label>
+                                    <select class="form-control" id="course" multiple>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -63,7 +69,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Salary:</label>
-                                    <input th:type="number" class="form-control" id="salary">
+                                    <select class="form-control" id="salary">
+
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Start Date:</label>
@@ -84,27 +92,30 @@
 
                     <script>
 
-
-                        var user = {};
+                        var course = {};
 
                         $(document).ready(function () {
                             /** TODO: OncLick function **/
-                            $("#user_form").on("submit", function (event){
+                            $("#teacher_form").on("submit", function (event){
 
                                 event.preventDefault();
 
                                 var formData = {
-                                    "username": $("#username").val(),
-                                    "email": $("#email").val(),
-                                    "password": $("#password").val(),
+                                    "first_name": $("#first_name").val(),
+                                    "last_name": $("#email").val(),
+                                    "email": $("#password").val(),
                                     "gender": $("#gender").val(),
-                                    "roleId": $("#roles").val().map(Number),
+                                    "phone": $("#phone").val(),
+                                    "salary_id": $("#salary").val(),
+                                    "start_date": $("#start_date").val(),
+                                    "end_date": $("#end_date").val(),
+                                    "courseId": $("#course").val().map(Number),
                                 };
 
                                 console.log(formData);
 
                                 $.ajax({
-                                    url : "http://localhost:8080/api/v1/user-mgt/user",
+                                    url : "http://localhost:8080/api/v1/user-mgt/teacher/add",
                                     type: "POST",
                                     data: JSON.stringify(formData),
                                     beforeSend: function (xhr){
@@ -113,7 +124,7 @@
                                     },
                                     success: function (data){
                                         console.log(data);
-                                        window.location.href = "http://localhost:8081/admin/user"
+                                        window.location.href = "http://localhost:8081/teacher"
                                     },
                                     error: function (err){
                                         console.log(err)
@@ -126,9 +137,9 @@
 
 
                             /** TODO: OnLoad function **/
-                            user.listRole = function (){
+                            course.listCourse = function (){
                                 $.ajax({
-                                    url : "http://localhost:8080/api/v1/user-mgt/role",
+                                    url : "http://localhost:8080/api/v1/user-mgt/course",
                                     type: "GET",
                                     beforeSend: function (xhr){
                                         xhr.setRequestHeader("Accept" , "application/json");
@@ -141,15 +152,42 @@
                                             role_data += '<option value='+value.id+'>'+value.name+'</option>';
                                         });
 
-                                        $("#roles").empty();
-                                        $("#roles").append(role_data);
+                                        $("#course").empty();
+                                        $("#course").append(role_data);
                                     },
                                     error: function (err){
                                         console.log(err)
                                     }
                                 });
                             };
-                            user.listRole();
+                            course.listCourse();
+
+
+                            /** TODO: OnLoad function **/
+                            course.listSalary = function (){
+                                $.ajax({
+                                    url : "http://localhost:8080/api/v1/user-mgt/salary/",
+                                    type: "GET",
+                                    beforeSend: function (xhr){
+                                        xhr.setRequestHeader("Accept" , "application/json");
+                                        xhr.setRequestHeader("Content-Type" , "application/json")
+                                    },
+                                    success: function (data){
+                                        console.log(data);
+                                        var role_data = "";
+                                        $.each(data.data , function(index, value){
+                                            role_data += '<option value='+value.id+'>'+value.salary+'</option>';
+                                        });
+
+                                        $("#salary").empty();
+                                        $("#salary").append(role_data);
+                                    },
+                                    error: function (err){
+                                        console.log(err)
+                                    }
+                                });
+                            };
+                            course.listSalary();
                         });
 
                     </script>
