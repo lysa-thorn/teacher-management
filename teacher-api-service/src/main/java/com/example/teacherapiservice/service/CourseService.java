@@ -8,7 +8,7 @@ public interface CourseService {
      Course addCourse(Course course);
      List<Course> findAll() ;
      Course findById(Long id);
-     boolean deleteById(Long id);
+     boolean deleteCourse(Long id);
      Course edit(Course course);
 }
 

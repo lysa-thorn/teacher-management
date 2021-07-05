@@ -1,6 +1,7 @@
 package com.example.teacherui.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,10 @@ public class CoursePageController {
         return "course/course-edit";
     }
 
-    @RequestMapping( "/delete/{id}")
-    public String deleteCourse(@PathVariable Long id){
-        return null;
+    @RequestMapping("/delete/{id}")
+    public String deleteCourse(ModelMap modelMap, @PathVariable String id){
+        modelMap.addAttribute("value" , id);
+        return "redirect:/course/";
     }
-
-
 
 }

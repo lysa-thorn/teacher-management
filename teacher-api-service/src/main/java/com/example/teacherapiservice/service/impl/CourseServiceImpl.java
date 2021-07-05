@@ -1,6 +1,7 @@
 package com.example.teacherapiservice.service.impl;
 
 import com.example.teacherapiservice.entity.Course;
+import com.example.teacherapiservice.entity.Salary;
 import com.example.teacherapiservice.repository.CourseRepository;
 import com.example.teacherapiservice.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean deleteById(Long id) {
+    public boolean deleteCourse(Long id) {
         Course existedDepartment = courseRepository.findById(id).get();
         if(existedDepartment != null){
             courseRepository.deleteById(id);
             return true;
         }
         return false;
-    }
 
+    }
     @Override
     public Course edit(Course course) {
         return courseRepository.save(course);
