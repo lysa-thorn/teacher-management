@@ -2,11 +2,13 @@ package com.example.teacherapiservice.payload;
 
 import com.example.teacherapiservice.entity.Course;
 import com.example.teacherapiservice.entity.Salary;
+import com.example.teacherapiservice.payload.projection.UserProjection;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 
-public class AddTeacherRequest {
+public abstract class AddTeacherRequest {
     private Long id;
     private String first_name;
     private String last_name;

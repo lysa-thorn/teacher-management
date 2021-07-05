@@ -17,6 +17,7 @@ public class Teacher {
     private String gender;
     private String phone;
     private Date start_date;
+    @Column(nullable = true)
     private Date end_date;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
