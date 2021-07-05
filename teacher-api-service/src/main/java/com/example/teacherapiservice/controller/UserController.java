@@ -51,6 +51,7 @@ public class UserController {
             )
     })
 
+
     @GetMapping("/{user-id}")
     public ApiResponse<UserProjection> findById(@PathVariable("user-id") Long id){
         UserProjection userProjection = userService.findUserProjectById(id);

@@ -32,11 +32,11 @@
         <div class="container-fluid">
             <div class="row  justify-content-center">
                 <div class="col-md-11">
-                    <a th:href="@{/course/add}" class="btn btn-primary">New Course</a>
-                    <table border="1" class="table table-bordered mt-3">
+                    <a th:href="@{/course/add}" class="btn btn-secondary">New Course</a>
+                    <table class="table table-striped mt-3">
                         <thead>
                         <tr>
-                            <th>Category Name</th>
+                            <th>Course Name</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -50,6 +50,7 @@
                     </form>
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
                 </div>
             </div>
@@ -92,8 +93,8 @@
                     $.each(data.data, function (index, value){
                         course_data += '<tr>';
                         course_data += '<td>'+value.name+'</td>';
-                        course_data += '<td><a href="/course/edit/' + value.id + '"' + '>Edit</a>/' +
-                            '<a href="/course/delete/' + value.id + '"' + '>Delete</a></td>';
+                        course_data += '<td><a href="/course/edit/' + value.id + '"' + '>  <i class="material-icons text-secondary">edit</i></a>/' +
+                            '<a href="http://localhost:8080/api/v1/user-mgt/course/delete/'+ value.id +'" onclick="delete()"><i class="material-icons text-danger">delete</i></a></td>';
                     });
 
                     $("#content").empty();

@@ -66,15 +66,11 @@ public class CourseController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ApiResponse deleteCourse(@RequestBody AddCourseRequest addCourseRequest){
-        Course course = courseService.findById(addCourseRequest.getId());
-        course.setName(addCourseRequest.getName());
-        Course courseAdded = courseService.addCourse(course);
-
+    public ApiResponse deleteCourse(@PathVariable Long id){
         return  new ApiResponse(
                 ApiStatus.SUC_CREATED.getCode(),
                 ApiStatus.SUC_CREATED.getMessage(),
-                courseAdded
+                courseService.deleteCourse(id)
         );
     }
 
